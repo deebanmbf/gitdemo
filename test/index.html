@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Yezdi</title>
+    <!-- Bootstrap -->
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="logo"><img src="images/logo.png" alt="Yezdi" /></div>
+    <div id="popUp">
+      <div id="popUpContent">Thanks for your response
+      <div id="close-btn" onclick="return closeMessage()"><img src="images/close-btn.png" alt="" /></div>
+      </div>
+    </div>
+    <div id="yezdi-wrapper">
+      <div id="yezdi-bike">
+        <div id="yezdi-bike-img"><img src="images/bike.png" alt="Yezdi" /></div>
+        <div id="yezdi-contact-form">
+          <h1>CONTACT US</h1>
+          <form action="" name="contactForm" onsubmit="return onSubmit()">
+            <div class="form-group">
+              <label>YOUR NAME</label>
+              <input class="inputMaterial" type="text" name="yourName" required="true">
+              <span class="bar"><!-- --></span>
+            </div>
+            <div class="form-group">
+              <label>YOUR EMAIL</label>
+              <input class="inputMaterial" type="email" name="yourMail" required="true">
+              <span class="bar"><!-- --></span>
+            </div>
+            <div class="form-group text-area-field">
+              <label>YOUR MESSAGE</label>
+              <textarea class="inputMaterial" name="yourMessage" onkeyup="textAreaAdjust(this, event)" required="true"></textarea>
+              <span class="bar"><!-- --></span>
+            </div>
+            <input class="btn" type="submit" name="submit" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function textAreaAdjust(o, event) {
+          event.preventDefault();
+          o.style.height = "0px";
+          o.style.height = (20+o.scrollHeight)+"px";
+      }
+
+      var popUp = document.getElementById('popUp'), wrapperDiv = document.getElementById('yezdi-wrapper');
+      function onSubmit() {
+        wrapperDiv.setAttribute('class', 'invalidStates');
+        var valid = true;
+        var x = document.forms["contactForm"]["yourMail"].value;
+        var y = document.forms["contactForm"]["yourName"].value;
+        var z = document.forms["contactForm"]["yourMessage"].value
+        var atpos = x.indexOf("@");
+        var dotpos = x.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+          valid = false;
+          return false;
+        }
+        if (y == "") {
+          valid = false;
+        }
+        if (z == "") {
+          valid = false;
+        }
+        if(valid) {
+          popUp.style.opacity = "1";
+          popUp.style.visibility = "visible";
+        }
+        return false;
+      }
+
+      function closeMessage() {
+        document.forms["contactForm"]["yourName"].value = "";
+        document.forms["contactForm"]["yourMail"].value = "";
+        document.forms["contactForm"]["yourMessage"].value = "";
+        wrapperDiv.setAttribute('class', '');
+        popUp.style.opacity = "0";
+        popUp.style.visibility = "hidden";
+        return false;
+      }
+    </script>
+  </body>
+</html>
